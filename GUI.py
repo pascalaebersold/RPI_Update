@@ -33,7 +33,11 @@ def right_window ():
 
 # class for updatebutton
 def Update_program ():
-    os.system("git clone https://github.com/pascalaebersold/.git /var/www/htmlnew")
+    os.system("git clone https://github.com/pascalaebersold/RPI_Update.git /home/pi/Update")
+    os.system("mv /home/pi/Program /home/pi/Programold")
+    os.system("mv /home/pi/Update /home/pi/Program")
+    os.system("rm -r /home/pi/Programold")
+    os.system("reboot")
 
 
 # Button to close the window
