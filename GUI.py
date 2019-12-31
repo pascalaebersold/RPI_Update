@@ -53,28 +53,28 @@ exitbutton = Button(text = "exit", command = close_window)
 # define font for Button
 exitbutton['font'] = FontHEL20B
 # define place on window
-exitbutton.place(x=w/2-w100*2.5, y=h-h100*7)
+exitbutton.place(x=w/2-w100*2.5, y=h-h100*6)
 
 # Button to go to the left window
 leftbutton = Button(text = "<", command = left_window, bd=0)
 # define font for Button
 leftbutton['font'] = FontHEL50B
 # define place on window
-leftbutton.place(x=0, y=h/2-h100*5)
+leftbutton.place(x=0, y=h/2-h100*4)
 
 # Button to go to the right window
 rightbutton = Button(text = ">", command = right_window, bd=0)
 # define font for Button
 rightbutton['font'] = FontHEL50B
 # define place on window
-rightbutton.place(x=w-w100*6, y=h/2-h100*5)
+rightbutton.place(x=w-w100*6, y=h/2-h100*4)
 
 # Button to close the window
 rightbutton = Button(text = "UPDATE", command = update_program, bd=0)
 # define font for Button
 rightbutton['font'] = FontHEL50B
 # define place on window
-rightbutton.place(x=w/2-w100*10, y=h/2-h100*6)
+rightbutton.place(x=w/2-w100*15, y=h/2-h100*4)
 
 # mainloop for tkinter
 root.mainloop()
