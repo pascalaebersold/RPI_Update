@@ -1,12 +1,17 @@
 from tkinter import *
 import tkinter.font as font
 import os
+import pygame
 
 root = Tk()
+pygame.init()
 
 # define font
 FontHEL20B = font.Font(family='Helvetica', size=20, weight='bold')
 FontHEL50B = font.Font(family='Helvetica', size=50, weight='bold')
+
+j = pygame.joystick.Joystick(0)
+j.init()
 
 # toggle fullscreen
 w, h = root.winfo_screenwidth(), root.winfo_screenheight()
@@ -47,6 +52,8 @@ def update_program ():
     os.system("rm -r /home/pi/Programold")
     os.system("reboot")
 
+if j.get_button(1):
+    update_program()
 
 # Button to close the window
 exitbutton = Button(text = "exit", command = close_window)
