@@ -1,5 +1,6 @@
 import pygame
 
+screen = pygame.display.set_mode([10,10]) #make a 10x10 window
 pygame.joystick.init() #find the joysticks
 joy = pygame.joystick.Joystick(0)
 joy.init()
