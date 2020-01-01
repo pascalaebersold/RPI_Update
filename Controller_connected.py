@@ -1,4 +1,5 @@
 import pygame
+from time import sleep
 
 screen = pygame.display.set_mode([10,10]) #make a 10x10 window
 pygame.joystick.init() #find the joysticks
