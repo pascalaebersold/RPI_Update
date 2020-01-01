@@ -34,10 +34,20 @@ def start ():
     pygame.joystick.init() #find the joysticks
     joy = pygame.joystick.Joystick(0)
     joy.init()
-    if(joy.get_name()=='Sony Entertainment Wireless Controller'):
-        a="DS4 connected"
-    else:
-        a="Connect Controller"
+    try:
+    while True:
+        events = pygame.event.get()
+        for event in events:
+            if event.type == pygame.JOYBUTTONDOWN:
+                if joy.get_button(1):
+                    root.destroy()
+                elif joy.get_button(13):
+                    root.destroy()
+            elif event.type == pygame.JOYBUTTONUP:
+
+    except KeyboardInterrupt:
+        joy.quit()
+
 
 
 # Button to close the window
