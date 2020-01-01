@@ -26,7 +26,7 @@ def close_window ():
 
 # class who exits the window
 def connect_controller ():
-    os.spawnl(os.P_NOWAIT, "sudo ds4drv")
+    subprocess.call("sudo ds4drv")
 
 # class who exits the window
 def start ():
