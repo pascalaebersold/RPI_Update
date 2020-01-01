@@ -5,7 +5,6 @@ import os
 root = Tk()
 
 # define font
-FontHEL20B = font.Font(family='Helvetica', size=20, weight='bold')
 FontHEL50B = font.Font(family='Helvetica', size=30, weight='bold')
 
 # toggle fullscreen
@@ -16,30 +15,6 @@ root.overrideredirect(1)
 #root.geometry("%dx%d+0+0" % (w, h))
 root.geometry("480x320")
 
-#get height and width
-h=root.winfo_screenheight()
-h100=h/100
-w=root.winfo_screenwidth()
-w100=w/100
-
-#define variable for screen rotation
-left=0
-right=0
-
-# class who exits the window
-def close_window ():
-    root.destroy()
-
-# class for leftbutton
-def left_window ():
-    if left < 3 :
-        left=left+1
-
-# class for rightbutton
-def right_window ():
-    if right > 1:
-        right=right+1
-
 # class for updatebutton
 def update_program ():
     os.system("git clone https://github.com/pascalaebersold/RPI_Update.git /home/pi/Update")
@@ -48,43 +23,56 @@ def update_program ():
     os.system("rm -r /home/pi/Programold")
     os.system("reboot")
 
-# Button to close the window
-exitbutton = Button(text = "Exit", command = close_window, width = 21)
-# define font for Button
-exitbutton['font'] = FontHEL50B
-# define place on window
-exitbutton.place(x=0, y=256)
+# class for controllebutton
+def controller ():
+    os.system("python /home/pi/Program/Controller.py")
 
+# class for play_programmbutton
+def play_programm ():
+    root.destroy()
+
+# class for edit_programmbutton
+def edit_programm ():
+    root.destroy()
+
+# class who exits the window
+def close_window ():
+    root.destroy()
+
+# Button to close the window
+updatebutton = Button(text = "Update", command = update_program, bd=1, width = 21)
+# define font for Button
+updatebutton['font'] = FontHEL50B
+# define place on window
+updatebutton.place(x=0, y=0)
 
 # Button to go to the left window
-controllerbutton = Button(text = "Controller", command = left_window, bd=1, width = 21)
+controllerbutton = Button(text = "Controller", command = controller, bd=1, width = 21)
 # define font for Button
 controllerbutton['font'] = FontHEL50B
 # define place on window
 controllerbutton.place(x=0, y=64)
 
-
 # Button to go to the right window
-play_programm = Button(text = "Play Programm", command = right_window, bd=1, width = 21)
+play_programm = Button(text = "Play Programm", command = play_programm, bd=1, width = 21)
 # define font for Button
 play_programm['font'] = FontHEL50B
 # define place on window
 play_programm.place(x=0, y=128)
 
 # Button to go to the right window
-edit_programm = Button(text = "Edit Programm", command = right_window, bd=1, width = 21)
+edit_programm = Button(text = "Edit Programm", command = edit_programm, bd=1, width = 21)
 # define font for Button
 edit_programm['font'] = FontHEL50B
 # define place on window
 edit_programm.place(x=0, y=192)
 
 # Button to close the window
-updatebutton = Button(text = "UPDATE", command = update_program, bd=1, width = 21)
+exitbutton = Button(text = "Exit", command = close_window, width = 21)
 # define font for Button
-updatebutton['font'] = FontHEL50B
+exitbutton['font'] = FontHEL50B
 # define place on window
-updatebutton.place(x=0, y=0)
-
+exitbutton.place(x=0, y=256)
 
 # mainloop for tkinter
 root.mainloop()
