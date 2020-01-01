@@ -8,7 +8,7 @@ a=".."
 
 root = Tk()
 
-os.system("sudo ds4drv")
+os.spawnl(os.P_DETACH, "sudo ds4drv")
 pygame.joystick.init() #find the joysticks
 joy = pygame.joystick.Joystick(0)
 joy.init()
@@ -31,6 +31,13 @@ root.geometry("480x320")
 # class who exits the window
 def close_window ():
     root.destroy()
+
+# Button to close the window
+controller_status_label = label(text = a, width = 21)
+# define font for Button
+controller_status_label['font'] = FontHEL50B
+# define place on window
+controller_status_label.place(x=0, y=194)
 
 # Button to close the window
 exitbutton = Button(text = "Exit", command = close_window, width = 21)
