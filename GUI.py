@@ -1,24 +1,20 @@
 from tkinter import *
 import tkinter.font as font
 import os
-import pygame
 
 root = Tk()
-pygame.init()
 
 # define font
 FontHEL20B = font.Font(family='Helvetica', size=20, weight='bold')
-FontHEL50B = font.Font(family='Helvetica', size=50, weight='bold')
-
-j = pygame.joystick.Joystick(0)
-j.init()
+FontHEL50B = font.Font(family='Helvetica', size=30, weight='bold')
 
 # toggle fullscreen
 w, h = root.winfo_screenwidth(), root.winfo_screenheight()
 
 # use the next line if you also want to get rid of the titlebar
 root.overrideredirect(1)
-root.geometry("%dx%d+0+0" % (w, h))
+#root.geometry("%dx%d+0+0" % (w, h))
+root.geometry("480x320")
 
 #get height and width
 h=root.winfo_screenheight()
@@ -52,36 +48,43 @@ def update_program ():
     os.system("rm -r /home/pi/Programold")
     os.system("reboot")
 
-if j.get_button(1):
-    update_program()
-
 # Button to close the window
 exitbutton = Button(text = "exit", command = close_window)
 # define font for Button
 exitbutton['font'] = FontHEL20B
 # define place on window
-exitbutton.place(x=w/2-w100*2.5, y=h-h100*5)
+exitbutton.place(x=210, y=260)
+
 
 # Button to go to the left window
-leftbutton = Button(text = "<", command = left_window, bd=0)
+controllerbutton = Button(text = "Controller", command = left_window, bd=1, width = 20)
 # define font for Button
-leftbutton['font'] = FontHEL50B
+controllerbutton['font'] = FontHEL50B
 # define place on window
-leftbutton.place(x=0, y=h/2-h100*2)
+controllerbutton.place(x=0, y=80)
+
 
 # Button to go to the right window
-rightbutton = Button(text = ">", command = right_window, bd=0)
+play_programm = Button(text = "Play Programm", command = right_window, bd=1, width = 20)
 # define font for Button
-rightbutton['font'] = FontHEL50B
+play_programm['font'] = FontHEL50B
 # define place on window
-rightbutton.place(x=w-w100*6, y=h/2-h100*2)
+play_programm.place(x=0, y=160)
+
+# Button to go to the right window
+edit_programm = Button(text = "Edit Programm", command = right_window, bd=1, width = 20)
+# define font for Button
+edit_programm['font'] = FontHEL50B
+# define place on window
+edit_programm.place(x=0, y=240)
 
 # Button to close the window
-rightbutton = Button(text = "UPDATE", command = update_program, bd=0)
+updatebutton = Button(text = "UPDATE", command = update_program, bd=1, width = 20)
 # define font for Button
-rightbutton['font'] = FontHEL50B
+updatebutton['font'] = FontHEL50B
 # define place on window
-rightbutton.place(x=w/2-w100*30, y=h/2-h100*2)
+updatebutton.place(x=0, y=0)
+
 
 # mainloop for tkinter
 root.mainloop()
