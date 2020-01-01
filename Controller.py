@@ -27,7 +27,7 @@ def close_window ():
 
 # class who exits the window
 def connect_controller ():
-    subprocess.call("sudo ds4drv", shell=False)
+    subprocess.call("sudo ds4drv", shell=True)
 
 # class who exits the window
 def start ():
