@@ -49,37 +49,37 @@ def update_program ():
     os.system("reboot")
 
 # Button to close the window
-exitbutton = Button(text = "exit", command = close_window)
+exitbutton = Button(text = "Exit", command = close_window, width = 21)
 # define font for Button
-exitbutton['font'] = FontHEL20B
+exitbutton['font'] = FontHEL50B
 # define place on window
-exitbutton.place(x=210, y=260)
+exitbutton.place(x=0, y=256)
 
 
 # Button to go to the left window
-controllerbutton = Button(text = "Controller", command = left_window, bd=1, width = 20)
+controllerbutton = Button(text = "Controller", command = left_window, bd=1, width = 21)
 # define font for Button
 controllerbutton['font'] = FontHEL50B
 # define place on window
-controllerbutton.place(x=0, y=80)
+controllerbutton.place(x=0, y=64)
 
 
 # Button to go to the right window
-play_programm = Button(text = "Play Programm", command = right_window, bd=1, width = 20)
+play_programm = Button(text = "Play Programm", command = right_window, bd=1, width = 21)
 # define font for Button
 play_programm['font'] = FontHEL50B
 # define place on window
-play_programm.place(x=0, y=160)
+play_programm.place(x=0, y=128)
 
 # Button to go to the right window
-edit_programm = Button(text = "Edit Programm", command = right_window, bd=1, width = 20)
+edit_programm = Button(text = "Edit Programm", command = right_window, bd=1, width = 21)
 # define font for Button
 edit_programm['font'] = FontHEL50B
 # define place on window
-edit_programm.place(x=0, y=240)
+edit_programm.place(x=0, y=192)
 
 # Button to close the window
-updatebutton = Button(text = "UPDATE", command = update_program, bd=1, width = 20)
+updatebutton = Button(text = "UPDATE", command = update_program, bd=1, width = 21)
 # define font for Button
 updatebutton['font'] = FontHEL50B
 # define place on window
