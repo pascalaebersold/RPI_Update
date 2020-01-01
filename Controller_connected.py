@@ -1,23 +1,13 @@
 import pygame
 
-pygame.init()
+pygame.joystick.init() #find the joysticks
+joy = pygame.joystick.Joystick(0)
+joy.init()
 
-j = pygame.joystick.Joystick(0)
-j.init()
-
-try:
-    while True:
-        events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.JOYBUTTONDOWN:
-                print("Button Pressed")
-                if j.get_button(6):
-                    # Control Left Motor using L2
-                elif j.get_button(7):
-                    # Control Right Motor using R2
-            elif event.type == pygame.JOYBUTTONUP:
-                print("Button Released")
-
-except KeyboardInterrupt:
-    print("EXITING NOW")
-    j.quit()
+while True:
+    pygame.event.get()
+    rt = joy.get_axis(5)
+    lt = joy.get_axis(2)
+    print(rt)
+    print(lt)
+    sleep(0.1) #limit the frequency to 10Hz
