@@ -5,6 +5,8 @@ import time
 import RPi.GPIO as GPIO
 import math
 
+C = 0
+
 # define the serial port (UART)
 port = serial.Serial("/dev/ttyAMA0", baudrate=1000000, timeout=3.0)
 
