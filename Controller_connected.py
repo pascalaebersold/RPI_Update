@@ -10,6 +10,8 @@ while True:
     pygame.event.get()
     rt = joy.get_axis(5)
     lt = joy.get_axis(2)
+    X = joy.get_button(1)
     print(rt)
     print(lt)
+    print(X)
     sleep(0.1) #limit the frequency to 10Hz
