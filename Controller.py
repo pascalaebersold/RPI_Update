@@ -34,8 +34,6 @@ def start ():
     pygame.joystick.init() #find the joysticks
     joy = pygame.joystick.Joystick(0)
     joy.init()
-    try:
-    while True:
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.JOYBUTTONDOWN:
