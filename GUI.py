@@ -25,7 +25,6 @@ def update_program ():
 
 # class for controllebutton
 def controller ():
-    root.destroy()
     os.system("python3 /home/pi/Program/Controller.py")
 
 # class for play_programmbutton
