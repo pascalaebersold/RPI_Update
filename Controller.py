@@ -31,22 +31,7 @@ def connect_controller ():
 
 # class who exits the window
 def start ():
-    pygame.joystick.init() #find the joysticks
-    joy = pygame.joystick.Joystick(0)
-    joy.init()
-        events = pygame.event.get()
-        for event in events:
-            if event.type == pygame.JOYBUTTONDOWN:
-                if joy.get_button(1):
-                    root.destroy()
-                elif joy.get_button(13):
-                    root.destroy()
-            elif event.type == pygame.JOYBUTTONUP:
-
-    except KeyboardInterrupt:
-        joy.quit()
-
-
+    Popen("python3 /home/pi/Program/Controller_connected.py", shell=True)
 
 # Button to close the window
 connect_controller = Button(text = a, command = connect_controller, bd=1, width = 21)
