@@ -3,7 +3,7 @@ import tkinter.font as font
 import os
 import pygame
 import sys
-from subprocess import POPEN,PIPE
+from subprocess import Popen, PIPE
 
 a="Connect Controller"
 
