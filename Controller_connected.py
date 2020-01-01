@@ -15,7 +15,7 @@ pygame.joystick.init()
 joy = pygame.joystick.Joystick(0)
 joy.init()
 
-def send_UART:
+def send_UART ():
     GPIO.output(17, GPIO.HIGH)
     port.write(arrt)
     time.sleep(0.1)
