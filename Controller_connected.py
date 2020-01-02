@@ -7,6 +7,10 @@ import math
 
 C = 0
 
+# sets the 74ls24 to send mode
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT)
+
 # define the serial port (UART)
 port = serial.Serial("/dev/ttyAMA0", baudrate=1000000, timeout=3.0)
 
