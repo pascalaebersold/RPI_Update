@@ -5,8 +5,6 @@ import pygame
 import sys
 from subprocess import Popen, PIPE
 
-a="Connect Controller"
-
 root = Tk()
 
 # define font
@@ -31,10 +29,10 @@ def connect_controller ():
 
 # class who exits the window
 def start ():
-    Popen("python3 /home/pi/Program/Controller_connected.py", shell=True)
+    Popen("python3 /home/pi/Program/Controller_Mode.py", shell=True)
 
 # Button to close the window
-connect_controller = Button(text = a, command = connect_controller, bd=1, width = 21)
+connect_controller = Button(text = "Connect Controller", command = connect_controller, bd=1, width = 21)
 # define font for Button
 connect_controller['font'] = FontHEL50B
 # define place on window

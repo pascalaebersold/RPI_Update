@@ -39,28 +39,28 @@ def edit_programm ():
 def close_window ():
     root.destroy()
 
-# Button to close the window
+# Button to Update the program
 updatebutton = Button(text = "Update", command = update_program, bd=1, width = 21)
 # define font for Button
 updatebutton['font'] = FontHEL50B
 # define place on window
 updatebutton.place(x=0, y=0)
 
-# Button to go to the left window
+# Button to go to the controller window
 controllerbutton = Button(text = "Controller", command = controller, bd=1, width = 21)
 # define font for Button
 controllerbutton['font'] = FontHEL50B
 # define place on window
 controllerbutton.place(x=0, y=64)
 
-# Button to go to the right window
+# Button to go to the play program window
 play_programm = Button(text = "Play Programm", command = play_programm, bd=1, width = 21)
 # define font for Button
 play_programm['font'] = FontHEL50B
 # define place on window
 play_programm.place(x=0, y=128)
 
-# Button to go to the right window
+# Button to go to the play program window
 edit_programm = Button(text = "Edit Programm", command = edit_programm, bd=1, width = 21)
 # define font for Button
 edit_programm['font'] = FontHEL50B
