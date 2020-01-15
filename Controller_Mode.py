@@ -30,14 +30,14 @@ print("joy2")
 def send_UART ():
     print("send")
     GPIO.output(17, GPIO.HIGH)
+    time.sleep(0.001)
     port.write(arrs)
-    time.sleep(0.1)
+    print(arrs)
+    time.sleep(0.001)
     port.write(arrt)
-    #time.sleep(0.1)
-    #port.write(arre)
-    time.sleep(0.1)
+    time.sleep(0.001)
     port.write(arra)
-    time.sleep(0.1)
+    time.sleep(0.001)
     GPIO.output(17, GPIO.LOW)
 
 while C < 1:
@@ -49,38 +49,31 @@ while C < 1:
             print(event.button)
             if event.button == 10:
                 #array speed sets the speed for the next action
-                arrs = (255, 255, 4, 5, 3, 32, 8, 0, 203)
+                arrs = (255, 255, 4, 5, 3, 32, 61, 0, 150)
                 #array torque sets the torque for the next action
                 arrt = (255, 255, 4, 5, 3, 34, 255, 3, 207)
-                #array enable sets the motor to listen mode so that he can execute a movment
-                #arre = (255, 255, 4, 2, 5, 24, 0, 220)
                 #array angle sets the angle/position
                 arra = (255, 255, 4, 5, 3, 30, 130, 1, 82)
                 send_UART()
                 #array speed sets the speed for the next action
-                arrs = (255, 255, 3, 5, 3, 30, 30, 3, 181)
+                arrs = (255, 255, 3, 5, 3, 32, 32, 0, 180)
                 #array torque sets the torque for the next action
                 arrt = (255, 255, 3, 5, 3, 34, 255, 3, 208)
-                #array enable sets the motor to listen mode so that he can execute a movment
-                #arre = (255, 255, 3, 2, 5, 24, 0, 221)
                 #array angle sets the angle/position
-                arra = (255, 255, 3, 5, 3, 34, 255, 3, 208)
+                arra = (255, 255, 3, 5, 3, 30, 42, 3, 169)
                 send_UART()
                 #array speed sets the speed for the next action
-                arrs = (255, 255, 2, 5, 3, 32, 8, 0, 205)
+                arrs = (255, 255, 2, 5, 3, 32, 113, 0, 100)
                 #array torque sets the torque for the next action
                 arrt = (255, 255, 2, 5, 3, 34, 255, 3, 209)
-                #array enable sets the motor to listen mode so that he can execute a movment
-                #arre = (255, 255, 2, 2, 5, 24, 0, 222)
                 #array angle sets the angle/position
                 arra = (255, 255, 2, 5, 3, 30, 160, 2, 53)
                 send_UART()
                 #array speed sets the speed for the next action
                 arrs = (255, 255, 1, 5, 3, 32, 2, 0, 212)
                 #array torque sets the torque for the next action
-                arrt = (255, 255, 1, 5, 3, 34, 0, 2, 210)
-                #array enable sets the motor to listen mode so that he can execute a movment
-                #arre = (255, 255, 1, 2, 5, 24, 0, 223)
+                arrt = (255, 255, 1, 5, 3, 34, 59, 1, 152)
                 #array angle sets the angle/position
                 arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
                 send_UART()
+               
