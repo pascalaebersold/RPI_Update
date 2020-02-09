@@ -21,6 +21,8 @@ root.geometry("480x320")
 # class who exits the window
 def close_window ():
     root.destroy()
+    pygame.quit()
+    Popen("sudo pkill -9 -f Controller_Mode.py", shell=True)
 
 
 # class who exits the window

@@ -4,15 +4,24 @@ import serial
 import time
 import RPi.GPIO as GPIO
 import math
+from subprocess import Popen, PIPE
+
+a = 1
 x = 0
 y = 2
 b = 0
 v = 0
 C = 0
+id = 1
 arrs=()
 arrt=()
 arra=()
 crc2=0
+arrcw=()
+arrccw=()
+arrgetp=()
+
+#Popen("python3 /home/pi/Program/updater.py", shell=True)
 
 # sets the 74ls24 to send mode
 GPIO.setmode(GPIO.BCM)
@@ -20,34 +29,55 @@ GPIO.setwarnings(False)
 GPIO.setup(17, GPIO.OUT)
 
 # define the serial port (UART)
-port = serial.Serial("/dev/ttyAMA0", baudrate=1000000, timeout=3.0)
+port = serial.Serial("/dev/ttyAMA0", baudrate=1000000, timeout=0.00005)
 
 #find the joysticks
 screen = pygame.display.set_mode([1,1])
 pygame.init
 pygame.joystick.init()
 joy = pygame.joystick.Joystick(0)
-print("joy")
 joy.init()
-print("joy2")
 
 def send_UART ():
-    print("send")
+
     GPIO.output(17, GPIO.HIGH)
-    time.sleep(0.001)
+    time.sleep(0.0001)
     port.write(arrs)
-    print(arra)
-    time.sleep(0.001)
+    time.sleep(0.00001)
     port.write(arrt)
-    time.sleep(0.001)
+    time.sleep(0.00001)
     port.write(arra)
-    time.sleep(0.001)
+    time.sleep(0.00001)
+    port.write(arrcw)
+    time.sleep(0.00001)
+    port.write(arrccw)
+    time.sleep(0.00001)
     GPIO.output(17, GPIO.LOW)
 
 while C < 1:
     for event in pygame.event.get():
         
-        if joy.get_axis(4) > 0 or joy.get_axis(4) < 0:
+        if joy.get_axis(4) > 0 or joy.get_axis(4) < 0 or joy.get_axis(4) == 0:
+                crc11= 255 - (id + 4 + 2 + 36 + 2)
+                if crc11 < 0:
+                    crc12 = crc11+256
+                else:
+                    crc12 = crc11
+                arrgetp=(255, 255, id, 4, 2, 36, 2, crc12)
+                while a==1:
+                    data = port.readline()
+                    if len(data) == 8:
+                        v = list(data)[6]
+                        y = list(data)[7]
+                        print(id,v,y)
+                        a=0
+                    GPIO.output(17, GPIO.HIGH)
+                    time.sleep(0.0001)
+                    port.write(arrgetp)
+                    time.sleep(0.0001)
+                    GPIO.output(17, GPIO.LOW)
+                a=1
+                    
                 b = joy.get_axis(4)
                 x = x + b
                 if x > 255:
@@ -64,19 +94,54 @@ while C < 1:
                 if y < 0:
                     y = 0
                 v = round(x)
-                print("v", v)
-                crc1= 255 - (2 + 5 + 3 + 30 + v + y)
+                #print("v", v)
+                
+                crc1= 255 - (id + 5 + 3 + 30 + v + y)
                 if crc1 < 0:
                     crc2 = crc1+256
                 else:
                     crc2 = crc1
-                arra= (255, 255, 2, 5, 3, 30, v, y, crc2)
-                arrs = (255, 255, 2, 5, 3, 32, 113, 0, 100)
-                arrt = (255, 255, 2, 5, 3, 34, 255, 3, 209)
+                arra= (255, 255, id, 5, 3, 30, v, y, crc2)
+                
+                crc3= 255 - (id + 5 + 3 + 32 +24 + 0)
+                if crc3 < 0:
+                    crc4 = crc3+256
+                else:
+                    crc4 = crc3
+                arrs = (255, 255, id, 5, 3, 32, 24, 0, crc4)
+                
+                crc5= 255 - (id + 5 + 3 + 34 + 255 + 3)
+                if crc5 < 0:
+                    crc6 = crc5+256
+                else:
+                    crc6 = crc5
+                arrt = (255, 255, id, 5, 3, 34, 255, 3, crc6)
+                
+                crc7= 255 - (id + 5 + 2 + 28 +254)
+                if crc7 < 0:
+                    crc8 = crc7+256
+                else:
+                    crc8 = crc7
+                arrcw = (255, 255, id, 5, 2, 28, 254, crc8)
+                
+                crc9= 255 - (id + 5 + 2 + 29 + 254)
+                if crc9 < 0:
+                    crc10 = crc9+256
+                else:
+                    crc10 = crc9
+                arrccw = (255, 255, id, 5, 2, 29, 254, crc10)
                 send_UART()
             
         if event.type == pygame.JOYBUTTONDOWN:
             print(event.button)
+            if event.button == 5:
+                if id > 5:
+                    id=0
+                id=id+1
+            if event.button == 4:
+                if id < 1:
+                    id=5
+                id=id-1
             if event.button == 9:
                 C=1
             if event.button == 10:
