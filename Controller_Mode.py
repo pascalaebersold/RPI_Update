@@ -22,10 +22,7 @@ arra=()
 crc2=0
 arrcw=()
 arrccw=()
-arrgetp=()
 arrgetp=(255, 255, 1, 4, 2, 36, 2, 210)
-
-#Popen("python3 /home/pi/Program/updater.py", shell=True)
 
 def send_UART ():
 
@@ -82,14 +79,13 @@ GPIO.setup(17, GPIO.OUT)
 # define the serial port (UART)
 port = serial.Serial("/dev/ttyAMA0", baudrate=1000000, timeout=0.00005)
 
-#find the joysticks
-screen = pygame.display.set_mode([1,1])
-pygame.init
+pygame.init()
+screen = pygame.display.set_mode((1, 1))
+done = False
+clock = pygame.time.Clock()
 pygame.joystick.init()
-joy = pygame.joystick.Joystick(0)
-joy.init()
 
-#Read value of id 1 and 5
+#Read value of id 1
 read_UART()
 GPIO.output(17, GPIO.HIGH)
 time.sleep(0.0001)
@@ -104,138 +100,156 @@ print(e,f)
 print("init ok")
 
 
+while not done:
     
-while C < 1:
-    for event in pygame.event.get():
-        if joy.get_axis(1) > 0 or joy.get_axis(1) < 0 or joy.get_axis(1) == 0:
-                d = joy.get_axis(1)
-                e = e + d
-                if e > 255:
-                    f = f+1
-                    e = 0
-                if e < 0 and f > 0:
-                    f = y-1
-                    e=255
-                if e < 0:
-                    e = 0
-                if f > 3:
-                    f = 3
-                    e = 255
-                if f < 0:
-                    f = 0
-                e = round(e)
-                
-                crc1= 255 - (1 + 5 + 3 + 30 + e + f)
-                if crc1 < 0:
-                    crc2 = crc1+256
-                else:
-                    crc2 = crc1
-                arra= (255, 255, 1, 5, 3, 30, e, f, crc2)
-                
-                crc3= 255 - (1 + 5 + 3 + 32 +24 + 0)
-                if crc3 < 0:
-                    crc4 = crc3+256
-                else:
-                    crc4 = crc3
-                arrs = (255, 255, 1, 5, 3, 32, 24, 0, crc4)
-                
-                crc5= 255 - (1 + 5 + 3 + 34 + 255 + 3)
-                if crc5 < 0:
-                    crc6 = crc5+256
-                else:
-                    crc6 = crc5
-                arrt = (255, 255, 1, 5, 3, 34, 255, 3, crc6)
-                
-                crc7= 255 - (1 + 5 + 2 + 28 +254)
-                if crc7 < 0:
-                    crc8 = crc7+256
-                else:
-                    crc8 = crc7
-                arrcw = (255, 255, 1, 5, 2, 28, 254, crc8)
-                
-                crc9= 255 - (1 + 5 + 2 + 29 + 254)
-                if crc9 < 0:
-                    crc10 = crc9+256
-                else:
-                    crc10 = crc9
-                arrccw = (255, 255, 1, 5, 2, 29, 254, crc10)
-                send_UART()
-        
-        if joy.get_axis(4) > 0 or joy.get_axis(4) < 0 or joy.get_axis(4) == 0:
-                b = joy.get_axis(4)
-                x = x + b
-                if x > 255:
-                    y = y+1
-                    x = 0
-                if x < 0 and y > 0:
-                    y = y-1
-                    x=255
-                if x < 0:
-                    x = 0
-                if y > 3:
-                    y = 3
-                    x = 255
-                if y < 0:
-                    y = 0
-                v = round(x)
-                #print("v", v)
-                
-                crc1= 255 - (id + 5 + 3 + 30 + v + y)
-                if crc1 < 0:
-                    crc2 = crc1+256
-                else:
-                    crc2 = crc1
-                arra= (255, 255, id, 5, 3, 30, v, y, crc2)
-                
-                crc3= 255 - (id + 5 + 3 + 32 +24 + 0)
-                if crc3 < 0:
-                    crc4 = crc3+256
-                else:
-                    crc4 = crc3
-                arrs = (255, 255, id, 5, 3, 32, 24, 0, crc4)
-                
-                crc5= 255 - (id + 5 + 3 + 34 + 255 + 3)
-                if crc5 < 0:
-                    crc6 = crc5+256
-                else:
-                    crc6 = crc5
-                arrt = (255, 255, id, 5, 3, 34, 255, 3, crc6)
-                
-                crc7= 255 - (id + 5 + 2 + 28 +254)
-                if crc7 < 0:
-                    crc8 = crc7+256
-                else:
-                    crc8 = crc7
-                arrcw = (255, 255, id, 5, 2, 28, 254, crc8)
-                
-                crc9= 255 - (id + 5 + 2 + 29 + 254)
-                if crc9 < 0:
-                    crc10 = crc9+256
-                else:
-                    crc10 = crc9
-                arrccw = (255, 255, id, 5, 2, 29, 254, crc10)
-                send_UART()
+    for event in pygame.event.get(): # User did something.
+        if event.type == pygame.QUIT: # If user clicked close.
+            done = True # Flag that we are done so we exit this loop.
 
+    # Get count of joysticks.
+    joystick_count = pygame.joystick.get_count()
+
+    # For each joystick:
+    for i in range(joystick_count):
+        joystick = pygame.joystick.Joystick(i)
+        joystick.init()
+
+
+        axis0 = joystick.get_axis(0)
+        print(axis0)
+
+
+        axis1 = joystick.get_axis(1)
+        e = e + axis1 * 10
+        if e > 255:
+            f = f + 1
+            e = 0
+        if e < 0 and f > 0:
+            f = y -1
+            e = 255
+        if e < 0:
+            e = 0
+        if f > 16:
+            f = 16
+            e = 255
+        if f < 0:
+            f = 0
+        e = round(e)
+        crc1= 255 - (1 + 5 + 3 + 30 + e + f)
+        if crc1 < 0:
+            crc2 = crc1+256
+        else:
+            crc2 = crc1
+        arra= (255, 255, 1, 5, 3, 30, e, f, crc2)
+                
+        crc3= 255 - (1 + 5 + 3 + 32 +24 + 0)
+        if crc3 < 0:
+            crc4 = crc3+256
+        else:
+            crc4 = crc3
+        arrs = (255, 255, 1, 5, 3, 32, 24, 0, crc4)
+                
+        crc5= 255 - (1 + 5 + 3 + 34 + 255 + 3)
+        if crc5 < 0:
+            crc6 = crc5+256
+        else:
+            crc6 = crc5
+        arrt = (255, 255, 1, 5, 3, 34, 255, 3, crc6)
+                
+        crc7= 255 - (1 + 5 + 2 + 28 +254)
+        if crc7 < 0:
+            crc8 = crc7+256
+        else:
+            crc8 = crc7
+        arrcw = (255, 255, 1, 5, 2, 28, 254, crc8)
+                
+        crc9= 255 - (1 + 5 + 2 + 29 + 254)
+        if crc9 < 0:
+            crc10 = crc9+256
+        else:
+            crc10 = crc9
+        arrccw = (255, 255, 1, 5, 2, 29, 254, crc10)
+        send_UART()
+
+
+        axis3 = joystick.get_axis(3)
+        print(axis3)
+        
+
+        axis4 = joystick.get_axis(4)
+        x = x + axis4
+        if x > 255:
+            y = y+1
+            x = 0
+        if x < 0 and y > 0:
+            y = y-1
+            x=255
+        if x < 0:
+            x = 0
+        if y > 3:
+            y = 3
+            x = 255
+        if y < 0:
+            y = 0
+        v = round(x)
             
+                
+        crc1= 255 - (id + 5 + 3 + 30 + v + y)
+        if crc1 < 0:
+            crc2 = crc1+256
+        else:
+            crc2 = crc1
+        arra= (255, 255, id, 5, 3, 30, v, y, crc2)
+                
+        crc3= 255 - (id + 5 + 3 + 32 +24 + 0)
+        if crc3 < 0:
+            crc4 = crc3+256
+        else:
+            crc4 = crc3
+        arrs = (255, 255, id, 5, 3, 32, 24, 0, crc4)
+                
+        crc5= 255 - (id + 5 + 3 + 34 + 255 + 3)
+        if crc5 < 0:
+            crc6 = crc5+256
+        else:
+            crc6 = crc5
+        arrt = (255, 255, id, 5, 3, 34, 255, 3, crc6)
+                
+        crc7= 255 - (id + 5 + 2 + 28 +254)
+        if crc7 < 0:
+            crc8 = crc7+256
+        else:
+            crc8 = crc7
+        arrcw = (255, 255, id, 5, 2, 28, 254, crc8)
+                
+        crc9= 255 - (id + 5 + 2 + 29 + 254)
+        if crc9 < 0:
+            crc10 = crc9+256
+        else:
+            crc10 = crc9
+        arrccw = (255, 255, id, 5, 2, 29, 254, crc10)
+
+        send_UART()
+
         if event.type == pygame.JOYBUTTONDOWN:
             
             #print(event.button)
             if event.button == 5:
+                id=id+1
                 if id > 5:
                     id=2
-                id=id+1
                 print(id,"5")
                 read_UART()
                 
             if event.button == 4:
+                id=id-1
                 if id < 2:
                     id=5
-                id=id-1
                 print(id,"4")
                 read_UART()
                 
             if event.button == 9:
-                C=1
+                done=true
                 
             if event.button == 10:
                 #array speed sets the speed for the next action
@@ -266,4 +280,7 @@ while C < 1:
                 #array angle sets the angle/position
                 arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
                 send_UART()
-               
+     
+    clock.tick(40)
+
+pygame.quit()

@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter.font as font
 import os
+from subprocess import Popen, PIPE
 
 root = Tk()
 
@@ -33,7 +34,8 @@ def play_programm ():
 
 # class for edit_programmbutton
 def edit_programm ():
-    root.destroy()
+    Popen("python3 /home/pi/Program/Edit_programm.py", shell=True)
+    Popen("python3 /home/pi/Program/Controller_Mode.py", shell=True)
 
 # class who exits the window
 def close_window ():
