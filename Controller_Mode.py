@@ -22,7 +22,7 @@ arra=()
 crc2=0
 arrcw=()
 arrccw=()
-arrgetp=(255, 255, 1, 4, 2, 36, 2, 210)
+arrgetp1=(255, 255, 1, 4, 2, 36, 2, 210)
 
 def send_UART ():
 
@@ -89,7 +89,7 @@ pygame.joystick.init()
 read_UART()
 GPIO.output(17, GPIO.HIGH)
 time.sleep(0.0001)
-port.write(arrgetp)
+port.write(arrgetp1)
 time.sleep(0.0001)
 GPIO.output(17, GPIO.LOW)
 data = port.readline()

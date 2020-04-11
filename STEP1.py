@@ -3,9 +3,12 @@ import serial
 import time
 import RPi.GPIO as GPIO
 import math
-
-id = 3
+from os import remove
+import os
+id = 1
 a = 1
+e = 0
+f = 0
 
 # sets the 74ls24 to send mode
 GPIO.setmode(GPIO.BCM)
@@ -44,5 +47,51 @@ def read_UART ():
                 print(id,v,y)
                 a=0
     a=1
-    print("Read out ok")
-read_UART()
+
+
+GPIO.output(17, GPIO.HIGH)
+time.sleep(0.0001)
+port.write((255, 255, 1, 4, 2, 36, 2, 210))
+time.sleep(0.0001)
+GPIO.output(17, GPIO.LOW)
+while a==1:
+    data = port.readline()
+    if len(data) ==5 and list(data)[1]== 0:
+        e = list(data)[2]
+        f = list(data)[3]
+        a = 0
+a = 1
+crc1= 255 - (1 + 5 + 3 + 30 + e + f)
+if crc1 < 0:
+    crc2 = crc1+256
+else:
+    crc2 = crc1
+arra= (255, 255, 1, 5, 3, 30, e, f, crc2)
+                
+crc3= 255 - (1 + 5 + 3 + 32 +24 + 0)
+if crc3 < 0:
+    crc4 = crc3+256
+else:
+    crc4 = crc3
+arrs = (255, 255, 1, 5, 3, 32, 24, 0, crc4)
+                
+crc5= 255 - (1 + 5 + 3 + 34 + 255 + 3)
+if crc5 < 0:
+    crc6 = crc5+256
+else:
+    crc6 = crc5
+arrt = (255, 255, 1, 5, 3, 34, 255, 3, crc6)
+
+with open("/home/pi/Program/Play_Program.py") as file:
+    datafile = file.readlines()
+    datafile[27] = "arra = (" + " ,".join(map(str, arra)) + ")\n"
+    datafile[28] = "arrs = (" + " ,".join(map(str, arrs)) + ")\n"
+    datafile[29] = "arrt = (" + " ,".join(map(str, arrt)) + ")\n"
+    newfile = open("/home/pi/Program/Play_Program_new.py", "w")
+    newfile.writelines(datafile)
+    newfile.close()
+    remove("/home/pi/Program/Play_Program.py")
+    os.rename("/home/pi/Program/Play_Program_new.py", "/home/pi/Program/Play_Program.py")
+
+    
+
