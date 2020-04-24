@@ -6,7 +6,10 @@ import RPi.GPIO as GPIO
 import math
 from subprocess import Popen, PIPE
 
+global e
+global f
 a = 1
+ar = 1
 x = 0
 y = 2
 b = 0
@@ -20,8 +23,6 @@ arrs=()
 arrt=()
 arra=()
 crc2=0
-arrcw=()
-arrccw=()
 arrgetp1=(255, 255, 1, 4, 2, 36, 2, 210)
 
 def send_UART ():
@@ -34,20 +35,16 @@ def send_UART ():
     time.sleep(0.00001)
     port.write(arra)
     time.sleep(0.00001)
-    port.write(arrcw)
-    time.sleep(0.00001)
-    port.write(arrccw)
-    time.sleep(0.00001)
     GPIO.output(17, GPIO.LOW)
 
 def read_UART ():
-    crc11= 255 - (id + 4 + 2 + 30 + 2)
+    crc11= 255 - (id + 4 + 2 + 36 + 2)
     if crc11 < 0:
         crc12 = crc11+256
     else:
         crc12 = crc11
                 
-    arrgetp=(255, 255, id, 4, 2, 30, 2, crc12)
+    arrgetp=(255, 255, id, 4, 2, 36, 2, crc12)
     global a
     global v
     global y
@@ -56,20 +53,31 @@ def read_UART ():
         time.sleep(0.0001)
         port.write(arrgetp)
         time.sleep(0.0001)
+        port.write(arrgetp)
+        time.sleep(0.0001)
         GPIO.output(17, GPIO.LOW)
         data = port.readline()
         if len(data) == 8 and list(data)[0]==255:
-            print(list(data))
+            #print(list(data))
             correct = 255-list(data)[2]-list(data)[3]-list(data)[4]-list(data)[5]-list(data)[6]
             if correct < 0:
                 correct = correct +256
             if correct == list(data)[-1] and list(data)[2]==id:
                 y = list(data)[6]
                 v = list(data)[7]
-                print(id,v,y)
+                v = 247 -v
+                if v < 1:
+                        if y == 0:
+                                v=255+v
+                        if y == 1:
+                                v=254+v
+                        if y == 2:
+                                v=253+v
+                        if y == 3:
+                                v=252+v
                 a=0
     a=1
-    print("Read out ok")
+    #print("Read out ok")
     
 # sets the 74ls24 to send mode
 GPIO.setmode(GPIO.BCM)
@@ -77,7 +85,7 @@ GPIO.setwarnings(False)
 GPIO.setup(17, GPIO.OUT)
 
 # define the serial port (UART)
-port = serial.Serial("/dev/ttyAMA0", baudrate=1000000, timeout=0.00005)
+port = serial.Serial("/dev/ttyAMA0", baudrate=1000000, timeout=0.0000005)
 
 pygame.init()
 screen = pygame.display.set_mode((1, 1))
@@ -85,20 +93,25 @@ done = False
 clock = pygame.time.Clock()
 pygame.joystick.init()
 
-#Read value of id 1
-read_UART()
-GPIO.output(17, GPIO.HIGH)
-time.sleep(0.0001)
-port.write(arrgetp1)
-time.sleep(0.0001)
-GPIO.output(17, GPIO.LOW)
-data = port.readline()
-if len(data) ==5 and list(data)[1]== 0:
-        e = list(data)[2]
-        f = list(data)[3]
-print(e,f)
-print("init ok")
+crc41= 255 - (1 + 4 + 2 + 36 + 2)
+if crc41 < 0:
+    crc42 = crc41+256
+else:
+    crc42 = crc41
+while ar == 1:
+    arrgetp=(255, 255, 1, 4, 2, 36, 2, crc42)
+    GPIO.output(17, GPIO.HIGH)
+    time.sleep(0.000001)
+    port.write(arrgetp)
+    time.sleep(0.000001)
+    GPIO.output(17, GPIO.LOW)
+    data = port.readline()
+    if len(data) == 2 and list(data)[0] < 17:
+        f = list(data)[0]
+        e = list(data)[1]
+        ar = 0
 
+read_UART()
 
 while not done:
     
@@ -116,7 +129,7 @@ while not done:
 
 
         axis0 = joystick.get_axis(0)
-        print(axis0)
+        #print(axis0)
 
 
         axis1 = joystick.get_axis(1)
@@ -155,43 +168,25 @@ while not done:
         else:
             crc6 = crc5
         arrt = (255, 255, 1, 5, 3, 34, 255, 3, crc6)
-                
-        crc7= 255 - (1 + 5 + 2 + 28 +254)
-        if crc7 < 0:
-            crc8 = crc7+256
-        else:
-            crc8 = crc7
-        arrcw = (255, 255, 1, 5, 2, 28, 254, crc8)
-                
-        crc9= 255 - (1 + 5 + 2 + 29 + 254)
-        if crc9 < 0:
-            crc10 = crc9+256
-        else:
-            crc10 = crc9
-        arrccw = (255, 255, 1, 5, 2, 29, 254, crc10)
         send_UART()
-
-
-        axis3 = joystick.get_axis(3)
-        print(axis3)
         
 
         axis4 = joystick.get_axis(4)
-        x = x + axis4
-        if x > 255:
+        v = v + axis4
+        if v > 255:
             y = y+1
-            x = 0
-        if x < 0 and y > 0:
+            v = 0
+        if v < 0 and y > 0:
             y = y-1
-            x=255
-        if x < 0:
-            x = 0
+            v=255
+        if v < 0:
+            v = 0
         if y > 3:
             y = 3
-            x = 255
+            v = 255
         if y < 0:
             y = 0
-        v = round(x)
+        v = round(v)
             
                 
         crc1= 255 - (id + 5 + 3 + 30 + v + y)
@@ -214,21 +209,7 @@ while not done:
         else:
             crc6 = crc5
         arrt = (255, 255, id, 5, 3, 34, 255, 3, crc6)
-                
-        crc7= 255 - (id + 5 + 2 + 28 +254)
-        if crc7 < 0:
-            crc8 = crc7+256
-        else:
-            crc8 = crc7
-        arrcw = (255, 255, id, 5, 2, 28, 254, crc8)
-                
-        crc9= 255 - (id + 5 + 2 + 29 + 254)
-        if crc9 < 0:
-            crc10 = crc9+256
-        else:
-            crc10 = crc9
-        arrccw = (255, 255, id, 5, 2, 29, 254, crc10)
-
+        print(arra)
         send_UART()
 
         if event.type == pygame.JOYBUTTONDOWN:
@@ -238,14 +219,14 @@ while not done:
                 id=id+1
                 if id > 5:
                     id=2
-                print(id,"5")
+                #print(id,"5")
                 read_UART()
                 
             if event.button == 4:
                 id=id-1
                 if id < 2:
                     id=5
-                print(id,"4")
+                #print(id,"4")
                 read_UART()
                 
             if event.button == 9:
@@ -281,6 +262,6 @@ while not done:
                 arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
                 send_UART()
      
-    clock.tick(40)
+    clock.tick(100)
 
 pygame.quit()

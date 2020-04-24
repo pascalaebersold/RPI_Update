@@ -30,7 +30,7 @@ def controller ():
 
 # class for play_programmbutton
 def play_programm ():
-    root.destroy()
+    os.system("python3 /home/pi/Program/Play_Program.py")
 
 # class for edit_programmbutton
 def edit_programm ():

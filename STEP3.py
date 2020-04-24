@@ -6,9 +6,9 @@ import math
 from os import remove
 import os
 id = 1
-al = 33
-sl = 34
-tl = 35
+al = 89
+sl = 90
+tl = 91
 a = 1
 ar = 1
 e = 0

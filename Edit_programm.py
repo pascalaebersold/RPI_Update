@@ -30,13 +30,19 @@ def step1 ():
     Popen("python3 /home/pi/Program/Controller_Mode.py", shell=True)
 
 def step2 ():
-    root.destroy()
+    Popen("sudo pkill -9 -f Controller_Mode.py", shell=True)
+    os.system("python3 /home/pi/Program/STEP2.py")
+    Popen("python3 /home/pi/Program/Controller_Mode.py", shel
 
 def step3 ():
-    root.destroy()
+    Popen("sudo pkill -9 -f Controller_Mode.py", shell=True)
+    os.system("python3 /home/pi/Program/STEP3.py")
+    Popen("python3 /home/pi/Program/Controller_Mode.py", shel
 
 def step4 ():
-    root.destroy()
+    Popen("sudo pkill -9 -f Controller_Mode.py", shell=True)
+    os.system("python3 /home/pi/Program/STEP4.py")
+    Popen("python3 /home/pi/Program/Controller_Mode.py", shel
 
 # Button to Update the program
 updatebutton = Button(text = "STEP 1", command = step1, bd=1, width = 21)
