@@ -43,7 +43,7 @@ def read_UART ():
         crc12 = crc11+256
     else:
         crc12 = crc11
-                
+
     arrgetp=(255, 255, id, 4, 2, 36, 2, crc12)
     global a
     global v
@@ -78,7 +78,7 @@ def read_UART ():
                 a=0
     a=1
     #print("Read out ok")
-    
+
 # sets the 74ls24 to send mode
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -114,7 +114,7 @@ while ar == 1:
 read_UART()
 
 while not done:
-    
+
     for event in pygame.event.get(): # User did something.
         if event.type == pygame.QUIT: # If user clicked close.
             done = True # Flag that we are done so we exit this loop.
@@ -154,14 +154,14 @@ while not done:
         else:
             crc2 = crc1
         arra= (255, 255, 1, 5, 3, 30, e, f, crc2)
-                
+
         crc3= 255 - (1 + 5 + 3 + 32 +24 + 0)
         if crc3 < 0:
             crc4 = crc3+256
         else:
             crc4 = crc3
         arrs = (255, 255, 1, 5, 3, 32, 24, 0, crc4)
-                
+
         crc5= 255 - (1 + 5 + 3 + 34 + 255 + 3)
         if crc5 < 0:
             crc6 = crc5+256
@@ -169,7 +169,7 @@ while not done:
             crc6 = crc5
         arrt = (255, 255, 1, 5, 3, 34, 255, 3, crc6)
         send_UART()
-        
+
 
         axis4 = joystick.get_axis(4)
         v = v + axis4
@@ -187,22 +187,22 @@ while not done:
         if y < 0:
             y = 0
         v = round(v)
-            
-                
+
+
         crc1= 255 - (id + 5 + 3 + 30 + v + y)
         if crc1 < 0:
             crc2 = crc1+256
         else:
             crc2 = crc1
         arra= (255, 255, id, 5, 3, 30, v, y, crc2)
-                
+
         crc3= 255 - (id + 5 + 3 + 32 +24 + 0)
         if crc3 < 0:
             crc4 = crc3+256
         else:
             crc4 = crc3
         arrs = (255, 255, id, 5, 3, 32, 24, 0, crc4)
-                
+
         crc5= 255 - (id + 5 + 3 + 34 + 255 + 3)
         if crc5 < 0:
             crc6 = crc5+256
@@ -213,7 +213,7 @@ while not done:
         send_UART()
 
         if event.type == pygame.JOYBUTTONDOWN:
-            
+
             #print(event.button)
             if event.button == 5:
                 id=id+1
@@ -221,17 +221,17 @@ while not done:
                     id=2
                 #print(id,"5")
                 read_UART()
-                
+
             if event.button == 4:
                 id=id-1
                 if id < 2:
                     id=5
                 #print(id,"4")
                 read_UART()
-                
+
             if event.button == 9:
                 done=true
-                
+
             if event.button == 10:
                 #array speed sets the speed for the next action
                 arrs = (255, 255, 4, 5, 3, 32, 61, 0, 150)
@@ -261,7 +261,8 @@ while not done:
                 #array angle sets the angle/position
                 arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
                 send_UART()
-     
+                read_UART()
+
     clock.tick(100)
 
 pygame.quit()
