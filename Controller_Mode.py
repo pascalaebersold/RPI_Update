@@ -64,7 +64,6 @@ def read_UART ():
         if id == 1 and len(data) == 2 and list(data)[0] < 17:
             e = list(data)[0]
             f = list(data)[1]
-            print(list(data))
             ar= 0
         if len(data) == 8 and list(data)[0]==255:
             print(list(data))
@@ -95,6 +94,8 @@ while id < 6:
         f5=f
     id = id + 1
     read_UART()
+
+print ("read_OK")
 
 while not done:
 
@@ -271,6 +272,8 @@ while not done:
         send_UART()
 
         if event.type == pygame.JOYBUTTONDOWN:
+
+            print(event.button)
 
             if event.button == 0:
                 os.system("python3 /home/pi/Program/STEP1.py")
