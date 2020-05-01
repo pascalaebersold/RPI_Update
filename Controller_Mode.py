@@ -95,6 +95,18 @@ while id < 6:
     id = id + 1
     read_UART()
 
+def send_UART ():
+
+    GPIO.output(17, GPIO.HIGH)
+    time.sleep(0.0001)
+    port.write(arrs)
+    time.sleep(0.00001)
+    port.write(arrt)
+    time.sleep(0.00001)
+    port.write(arra)
+    time.sleep(0.00001)
+    GPIO.output(17, GPIO.LOW)
+
 print ("read_OK")
 
 while not done:
