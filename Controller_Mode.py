@@ -141,7 +141,8 @@ time.sleep(1.1)
 send_UART()
 time.sleep(4.1)
 
-def read_UART_2:
+def read_UART_2():
+    global id
     while id < 5:
         if id == 1:
             e1=e
