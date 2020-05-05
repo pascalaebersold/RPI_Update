@@ -21,6 +21,8 @@ e3 = 0
 f3 = 0
 e4 = 0
 f4 = 0
+e5 = 0
+f5 = 0
 arrs=()
 arrt=()
 arra=()
@@ -76,7 +78,7 @@ def read_UART ():
                 ar=0
     ar=1
 
-while id < 6:
+while id < 5:
     if id == 1:
         e1=e
         f1=f
@@ -203,8 +205,8 @@ while not done:
         arrt = (255, 255, 2, 5, 3, 34, 255, 3, crc6)
         send_UART()
 
-        axis2 = joystick.get_axis(2)
-        e3 = e3 + axis2
+        axis3 = joystick.get_axis(3)
+        e3 = e3 + axis3
         if e3 > 255:
             f3 = f3+1
             e3 = 0
@@ -228,12 +230,12 @@ while not done:
             crc2 = crc1
         arra= (255, 255, 3, 5, 3, 30, e3, f3, crc2)
 
-        crc3= 255 - (3 + 5 + 3 + 32 +24 + 0)
+        crc3= 255 - (3 + 5 + 3 + 32 +35 + 0)
         if crc3 < 0:
             crc4 = crc3+256
         else:
             crc4 = crc3
-        arrs = (255, 255, 3, 5, 3, 32, 24, 0, crc4)
+        arrs = (255, 255, 3, 5, 3, 32, 35, 0, crc4)
 
         crc5= 255 - (3 + 5 + 3 + 34 + 255 + 3)
         if crc5 < 0:
@@ -243,8 +245,8 @@ while not done:
         arrt = (255, 255, 3, 5, 3, 34, 255, 3, crc6)
         send_UART()
 
-        axis3 = joystick.get_axis(3)
-        e4 = e4 + axis3
+        axis4 = joystick.get_axis(4)
+        e4 = e4 + axis4
         if e4 > 255:
             f4 = f4+1
             e4 = 0
@@ -425,6 +427,6 @@ while not done:
                 send_UART()
                 time.sleep(0.1)
 
-    clock.tick(100)
+    clock.tick(50)
 
 pygame.quit()
