@@ -28,7 +28,7 @@ def read_UART ():
         crc12 = crc11+256
     else:
         crc12 = crc11
-                
+
     arrgetp=(255, 255, id, 4, 2, 36, 2, crc12)
     global ar
     global e
@@ -55,6 +55,16 @@ def read_UART ():
             if correct == list(data)[-1] and list(data)[2]==id:
                 f = list(data)[6]
                 e = list(data)[7]
+                e = 247 - e
+                if e < 1:
+                    if f == 0:
+                        e = 255 + e
+                    if f == 1:
+                        e == 254 + e
+                    if f == 2:
+                        e = 253 + 2
+                    if f == 3:
+                        e = 252 + e
                 ar=0
     ar=1
 
@@ -67,14 +77,14 @@ while id < 6:
     else:
         crc2 = crc1
     arra= (255, 255, id, 5, 3, 30, e, f, crc2)
-                
+
     crc3= 255 - (id + 5 + 3 + 32 +24 + 0)
     if crc3 < 0:
         crc4 = crc3+256
     else:
         crc4 = crc3
     arrs = (255, 255, id, 5, 3, 32, 24, 0, crc4)
-                
+
     crc5= 255 - (id + 5 + 3 + 34 + 255 + 3)
     if crc5 < 0:
         crc6 = crc5+256
@@ -96,6 +106,3 @@ while id < 6:
     al = al + 5
     sl = sl + 5
     tl = tl + 5
-
-    
-

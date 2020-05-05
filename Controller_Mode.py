@@ -141,26 +141,27 @@ time.sleep(1.1)
 send_UART()
 time.sleep(4.1)
 
-
-while id < 5:
-    if id == 1:
-        e1=e
-        f1=f
-    if id == 2:
-        e2=e
-        f2=f
-    if id == 3:
-        e3=e
-        f3=f
-    if id == 4:
-        e4=e
-        f4=f
-    if id == 5:
-        e5=e
+def read_UART_2:
+    while id < 5:
+        if id == 1:
+            e1=e
+            f1=f
+        if id == 2:
+            e2=e
+            f2=f
+        if id == 3:
+            e3=e
+            f3=f
+        if id == 4:
+            e4=e
+            f4=f
+        if id == 5:
+            e5=e
         f5=f
     id = id + 1
     read_UART()
 
+read_UART_2()
 time.sleep(5)
 print ("read_OK")
 
@@ -446,9 +447,9 @@ while not done:
                 #array angle sets the angle/position
                 arra = (255, 255, 4, 5, 3, 30, 130, 1, 82)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(1.1)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(1.1)
                 #array speed sets the speed for the next action
                 arrs = (255, 255, 3, 5, 3, 32, 32, 0, 180)
                 #array torque sets the torque for the next action
@@ -456,9 +457,9 @@ while not done:
                 #array angle sets the angle/position
                 arra = (255, 255, 3, 5, 3, 30, 42, 3, 169)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(1.1)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(1.1)
                 #array speed sets the speed for the next action
                 arrs = (255, 255, 2, 5, 3, 32, 113, 0, 100)
                 #array torque sets the torque for the next action
@@ -466,9 +467,9 @@ while not done:
                 #array angle sets the angle/position
                 arra = (255, 255, 2, 5, 3, 30, 160, 2, 53)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(1.1)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(1.1)
                 #array speed sets the speed for the next action
                 arrs = (255, 255, 1, 5, 3, 32, 2, 0, 212)
                 #array torque sets the torque for the next action
@@ -476,9 +477,11 @@ while not done:
                 #array angle sets the angle/position
                 arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(1.1)
                 send_UART()
-                time.sleep(0.1)
+                time.sleep(4.1)
+                id = 0
+                read_UART_2()
 
     clock.tick(50)
 
