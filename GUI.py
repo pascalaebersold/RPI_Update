@@ -3,8 +3,6 @@ import tkinter.font as font
 import os
 from subprocess import Popen, PIPE
 
-os.system("vncserver -randr=1920x1080")
-
 root = Tk()
 
 # define font
