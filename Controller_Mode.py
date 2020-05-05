@@ -107,9 +107,9 @@ arrt = (255, 255, 4, 5, 3, 34, 255, 3, 207)
 #array angle sets the angle/position
 arra = (255, 255, 4, 5, 3, 30, 130, 1, 82)
 send_UART()
-time.sleep(1.1)
+time.sleep(2)
 send_UART()
-time.sleep(1.1)
+time.sleep(2)
 #array speed sets the speed for the next action
 arrs = (255, 255, 3, 5, 3, 32, 32, 0, 180)
 #array torque sets the torque for the next action
@@ -117,9 +117,9 @@ arrt = (255, 255, 3, 5, 3, 34, 255, 3, 208)
 #array angle sets the angle/position
 arra = (255, 255, 3, 5, 3, 30, 42, 3, 169)
 send_UART()
-time.sleep(1.1)
+time.sleep(2)
 send_UART()
-time.sleep(1.1)
+time.sleep(2)
 #array speed sets the speed for the next action
 arrs = (255, 255, 2, 5, 3, 32, 113, 0, 100)
 #array torque sets the torque for the next action
@@ -127,9 +127,9 @@ arrt = (255, 255, 2, 5, 3, 34, 255, 3, 209)
 #array angle sets the angle/position
 arra = (255, 255, 2, 5, 3, 30, 160, 2, 53)
 send_UART()
-time.sleep(1.1)
+time.sleep(2)
 send_UART()
-time.sleep(1.1)
+time.sleep(2)
 #array speed sets the speed for the next action
 arrs = (255, 255, 1, 5, 3, 32, 2, 0, 212)
 #array torque sets the torque for the next action
@@ -137,9 +137,9 @@ arrt = (255, 255, 1, 5, 3, 34, 59, 1, 152)
 #array angle sets the angle/position
 arra = (255, 255, 1, 5, 3, 30, 0, 4, 212)
 send_UART()
-time.sleep(1.1)
+time.sleep(2)
 send_UART()
-time.sleep(4.1)
+time.sleep(2)
 
 
 while id < 5:

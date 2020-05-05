@@ -5,6 +5,8 @@ from subprocess import Popen, PIPE
 import serial
 import RPi.GPIO as GPIO
 import math
+from time import sleep
+import time
 
 global arra
 global arrs
