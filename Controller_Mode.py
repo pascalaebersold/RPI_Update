@@ -88,6 +88,48 @@ def read_UART ():
                 ar=0
     ar=1
 
+#array speed sets the speed for the next action
+arrs = (255, 255, 4, 5, 3, 32, 61, 0, 150)
+#array torque sets the torque for the next action
+arrt = (255, 255, 4, 5, 3, 34, 255, 3, 207)
+#array angle sets the angle/position
+arra = (255, 255, 4, 5, 3, 30, 130, 1, 82)
+send_UART()
+time.sleep(1.1)
+send_UART()
+time.sleep(1.1)
+#array speed sets the speed for the next action
+arrs = (255, 255, 3, 5, 3, 32, 32, 0, 180)
+#array torque sets the torque for the next action
+arrt = (255, 255, 3, 5, 3, 34, 255, 3, 208)
+#array angle sets the angle/position
+arra = (255, 255, 3, 5, 3, 30, 42, 3, 169)
+send_UART()
+time.sleep(1.1)
+send_UART()
+time.sleep(1.1)
+#array speed sets the speed for the next action
+arrs = (255, 255, 2, 5, 3, 32, 113, 0, 100)
+#array torque sets the torque for the next action
+arrt = (255, 255, 2, 5, 3, 34, 255, 3, 209)
+#array angle sets the angle/position
+arra = (255, 255, 2, 5, 3, 30, 160, 2, 53)
+send_UART()
+time.sleep(1.1)
+send_UART()
+time.sleep(1.1)
+#array speed sets the speed for the next action
+arrs = (255, 255, 1, 5, 3, 32, 2, 0, 212)
+#array torque sets the torque for the next action
+arrt = (255, 255, 1, 5, 3, 34, 59, 1, 152)
+#array angle sets the angle/position
+arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
+send_UART()
+time.sleep(1.1)
+send_UART()
+time.sleep(4.1)
+
+
 while id < 5:
     if id == 1:
         e1=e
@@ -313,7 +355,7 @@ while not done:
                 os.system("python3 /home/pi/Program/STEP4.py")
 
             while event.button == 5:
-                e5 = e5 - 1
+                e5 = e5 - 10
                 if e5 > 255:
                     f5 = f5+1
                     e4 = 0
@@ -353,7 +395,7 @@ while not done:
                 send_UART()
 
             while event.button == 4:
-                e5 = e5 + 1
+                e5 = e5 + 10
                 if e5 > 255:
                     f5 = f5+1
                     e4 = 0
