@@ -141,28 +141,26 @@ time.sleep(1.1)
 send_UART()
 time.sleep(4.1)
 
-def read_UART_2():
-    global id
-    while id < 5:
-        if id == 1:
-            e1=e
-            f1=f
-        if id == 2:
-            e2=e
-            f2=f
-        if id == 3:
-            e3=e
-            f3=f
-        if id == 4:
-            e4=e
-            f4=f
-        if id == 5:
-            e5=e
-        f5=f
-    id = id + 1
-    read_UART()
 
-read_UART_2()
+while id < 5:
+    if id == 1:
+        e1=e
+        f1=f
+    if id == 2:
+        e2=e
+        f2=f
+    if id == 3:
+        e3=e
+        f3=f
+    if id == 4:
+        e4=e
+        f4=f
+    if id == 5:
+        e5=e
+    f5=f
+id = id + 1
+read_UART()
+
 time.sleep(5)
 print ("read_OK")
 
@@ -481,8 +479,7 @@ while not done:
                 time.sleep(1.1)
                 send_UART()
                 time.sleep(4.1)
-                id = 0
-                read_UART_2()
+                read_UART()
 
     clock.tick(50)
 
