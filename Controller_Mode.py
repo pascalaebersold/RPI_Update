@@ -120,6 +120,8 @@ send_UART()
 time.sleep(2)
 send_UART()
 time.sleep(2)
+send_UART()
+time.sleep(2)
 #array speed sets the speed for the next action
 arrs = (255, 255, 2, 5, 3, 32, 113, 0, 100)
 #array torque sets the torque for the next action
