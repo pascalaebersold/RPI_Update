@@ -8,7 +8,7 @@ from subprocess import Popen, PIPE
 from os import remove
 import os
 
-id = 0
+id = 1
 a = 1
 ar = 1
 e = 0
@@ -22,7 +22,7 @@ f3 = 0
 e4 = 0
 f4 = 0
 e5 = 0
-f5 = 0
+f5 = 4
 arrs=()
 arrt=()
 arra=()
@@ -135,7 +135,7 @@ arrs = (255, 255, 1, 5, 3, 32, 2, 0, 212)
 #array torque sets the torque for the next action
 arrt = (255, 255, 1, 5, 3, 34, 59, 1, 152)
 #array angle sets the angle/position
-arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
+arra = (255, 255, 1, 5, 3, 30, 0, 4, 212)
 send_UART()
 time.sleep(1.1)
 send_UART()
@@ -357,7 +357,7 @@ while not done:
                 os.system("python3 /home/pi/Program/STEP4.py")
 
             while event.button == 5:
-                e5 = e5 - 10
+                e5 = e5 - 100
                 if e5 > 255:
                     f5 = f5+1
                     e4 = 0
@@ -397,7 +397,7 @@ while not done:
                 send_UART()
 
             while event.button == 4:
-                e5 = e5 + 10
+                e5 = e5 + 100
                 if e5 > 255:
                     f5 = f5+1
                     e4 = 0
@@ -476,7 +476,7 @@ while not done:
                 #array torque sets the torque for the next action
                 arrt = (255, 255, 1, 5, 3, 34, 59, 1, 152)
                 #array angle sets the angle/position
-                arra = (255, 255, 1, 5, 3, 30, 0, 0, 216)
+                arra = (255, 255, 1, 5, 3, 30, 0, 4, 212)
                 send_UART()
                 time.sleep(1.1)
                 send_UART()
