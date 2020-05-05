@@ -158,8 +158,8 @@ while id < 5:
     if id == 5:
         e5=e
     f5=f
-id = id + 1
-read_UART()
+    id = id + 1
+    read_UART()
 
 time.sleep(5)
 print ("read_OK")

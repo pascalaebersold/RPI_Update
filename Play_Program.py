@@ -27,7 +27,7 @@ def send_UART ():
     port.write(arrt)
     time.sleep(0.001)
     port.write(arra)
-    time.sleep(0.001)
+    time.sleep(3)
     GPIO.output(17, GPIO.LOW)
 
 #STEP 1 ID 1
@@ -56,7 +56,7 @@ arrs = (255, 255, 5, 5, 3, 32, 24, 0, 186)
 arrt = (255, 255, 5, 5, 3, 34, 255, 3, 206)
 send_UART()
 
-time.sleep(3)
+time.sleep(7)
 
 #STEP 2 ID 1
 arra = (255, 255, 1, 5, 3, 30, 0, 249, 223)
@@ -84,7 +84,7 @@ arrs = (255, 255, 5, 5, 3, 32, 24, 0, 186)
 arrt = (255, 255, 5, 5, 3, 34, 255, 3, 206)
 send_UART()
 
-time.sleep(3)
+time.sleep(7)
 
 #STEP 3 ID 1
 arra = (255, 255, 1, 5, 3, 30, 0, 249, 223)
@@ -112,7 +112,7 @@ arrs = (255, 255, 5, 5, 3, 32, 24, 0, 186)
 arrt = (255, 255, 5, 5, 3, 34, 255, 3, 206)
 send_UART()
 
-time.sleep(3)
+time.sleep(7)
 
 #STEP 4 ID 1
 arra = (255, 255, 1, 5, 3, 30, 0, 250, 222)
