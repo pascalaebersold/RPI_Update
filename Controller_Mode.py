@@ -75,6 +75,16 @@ def read_UART ():
             if correct == list(data)[-1] and list(data)[2]==id:
                 f = list(data)[6]
                 e = list(data)[7]
+                e = 247 - e
+                if e < 1:
+                    if f == 0:
+                        e = 255 + e
+                    if f == 1:
+                        e == 254 + e
+                    if f == 2:
+                        e = 253 + 2
+                    if f == 3:
+                        e = 252 + e
                 ar=0
     ar=1
 
@@ -109,6 +119,7 @@ def send_UART ():
     time.sleep(0.00001)
     GPIO.output(17, GPIO.LOW)
 
+time.sleep(5)
 print ("read_OK")
 
 while not done:
