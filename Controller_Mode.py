@@ -43,6 +43,18 @@ done = False
 clock = pygame.time.Clock()
 pygame.joystick.init()
 
+def send_UART ():
+
+    GPIO.output(17, GPIO.HIGH)
+    time.sleep(0.0001)
+    port.write(arrs)
+    time.sleep(0.00001)
+    port.write(arrt)
+    time.sleep(0.00001)
+    port.write(arra)
+    time.sleep(0.00001)
+    GPIO.output(17, GPIO.LOW)
+
 def read_UART ():
     crc11= 255 - (id + 4 + 2 + 36 + 2)
     if crc11 < 0:
@@ -148,18 +160,6 @@ while id < 5:
         f5=f
     id = id + 1
     read_UART()
-
-def send_UART ():
-
-    GPIO.output(17, GPIO.HIGH)
-    time.sleep(0.0001)
-    port.write(arrs)
-    time.sleep(0.00001)
-    port.write(arrt)
-    time.sleep(0.00001)
-    port.write(arra)
-    time.sleep(0.00001)
-    GPIO.output(17, GPIO.LOW)
 
 time.sleep(5)
 print ("read_OK")
